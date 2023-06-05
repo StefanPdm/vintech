@@ -1,0 +1,136 @@
+{% extends 'index.html' %} {%block content%} {% load static%}
+<div class="row mt-4">
+   <div class="col-4">
+      <div class="shadow p-4 rounded">
+         <h3>Bestellübersicht</h3>
+         <hr />
+         {% for article in articles %}
+         <div class="d-flex">
+            <p class="px-2">{{article.quantity}}x</p>
+            <p class="px-2 me-auto">{{article.article.name}}</p>
+            <p class="px-2">{{article.article.price | floatformat:2}} €</p>
+            <p class="px-2 fw-bold">{{article.get_sumary | floatformat:2}} €</p>
+         </div>
+         {% endfor %}
+         <hr />
+         <div class="d-flex">
+            <p class="fw-bold p-2 me-auto">Menge: {{order.get_total_quantity}}</p>
+            <p class="fw-bold p-2">
+               Gesamtpreis: {{order.get_total_price | floatformat:2}} €
+            </p>
+         </div>
+      </div>
+   </div>
+   <div class="col-8">
+      <div class="shadow p-4 rounded">
+         <h3>Rechnungsanschrift</h3>
+         <hr />
+         <form class="row g-3">
+            <div class="col-md-6">
+               <label
+                  for="inputName"
+                  class="form-label"
+                  >Name</label
+               >
+               <input
+                  type="text"
+                  class="form-control"
+                  id="inputName"
+               />
+            </div>
+            <div class="col-md-6">
+               <label
+                  for="inputEmail"
+                  class="form-label"
+                  >Email</label
+               >
+               <input
+                  type="email"
+                  class="form-control"
+                  id="inputEmail"
+               />
+            </div>
+            <div class="col-12">
+               <label
+                  for="inputAddress"
+                  class="form-label"
+                  >Strasse + Nr.</label
+               >
+               <input
+                  type="text"
+                  class="form-control"
+                  id="inputAddress"
+               />
+            </div>
+            <div class="col-md-2">
+               <label
+                  for="inputPlz"
+                  class="form-label"
+                  >PLZ</label
+               >
+               <input
+                  type="text"
+                  class="form-control"
+                  id="inputPlz"
+               />
+            </div>
+            <div class="col-md-5">
+               <label
+                  for="inputCity"
+                  class="form-label"
+                  >Stadt</label
+               >
+               <input
+                  type="text"
+                  class="form-control"
+                  id="inputCity"
+               />
+            </div>
+            <div class="col-md-5">
+               <label
+                  for="inputState"
+                  class="form-label"
+                  >Bundesland</label
+               >
+               <select
+                  id="inputState"
+                  class="form-select"
+               >
+                  <option selected>Auswählen...</option>
+                  <option>Berlin</option>
+                  <option>Brandenburg</option>
+                  <option>Schleswig Holstein</option>
+                  <option>Nordrhein Westphalen</option>
+               </select>
+            </div>
+            {% comment %}
+            <div class="col-12">
+               <div class="form-check">
+                  <input
+                     class="form-check-input"
+                     type="checkbox"
+                     id="gridCheck"
+                  />
+                  <label
+                     class="form-check-label"
+                     for="gridCheck"
+                  >
+                     Check me out
+                  </label>
+               </div>
+            </div>
+            {% endcomment %}
+            <div class="col-12 d-flex justify-content-end">
+               <button
+                  type="submit"
+                  class="btn btn-secondary btn-buy"
+                  id="bestell-button"
+               >
+                  Weiter
+               </button>
+            </div>
+         </form>
+      </div>
+   </div>
+</div>
+{% endblock %}

@@ -1,0 +1,77 @@
+:root {
+  --brand-green: #617d61;
+  --brand-orange: #f97300;
+  --brand-orange-light: #ffd0a6;
+  --brand-white: #fff;
+  --brand-black: #000;
+  font-size: 14px !important;
+}
+
+.bg-orange {
+  background-color: var(--brand-orange);
+}
+
+.shadow-custom-1 {
+  box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3);
+}
+
+.navbar>.container-fluid {
+  align-items: flex-start !important;
+}
+
+.navbar ul {
+  padding-top: 40px;
+  font-size: 1.3rem;
+}
+
+.navbar li {
+  position: relative;
+}
+
+.dropdown ul {
+  position: absolute !important;
+  left: -70% !important;
+  transition: all .225s ease-in-out;
+}
+
+
+.nav-bg {
+  background: linear-gradient(90deg, white, var(--brand-green));
+  align-items: center;
+  max-height: 130px;
+  z-index: 1;
+}
+
+.logo-img {
+  width: 120px;
+}
+
+.btn-buy {
+  background: var(--brand-orange);
+  color: var(--brand-white);
+  border: 2px solid var(--brand-orange);
+  box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3);
+}
+
+.btn-buy:hover {
+  background: var(--brand-orange-light);
+  color: var(--brand-black);
+  border: 2px solid var(--brand-orange);
+}
+
+.card-style {
+  max-width: 25rem;
+  min-width: 15rem;
+  /* height: 29rem; */
+
+}
+
+.card {
+  height: 100%;
+  box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3);
+  transition: all 0.225s ease-in-out;
+}
+
+.card:hover {
+  transform: scale(1.02);
+}

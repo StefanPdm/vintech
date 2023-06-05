@@ -1,0 +1,20 @@
+1. Kopfhörer, Bluetooth noise cancelling, 99.00
+2. ESP32, 32-Bit Microcontroller, 9.99
+3. Commodore 64, 8-Bit-Heimcomputer, 229.99
+4. NES, Nintendo Entertainment System, 599.99
+5. Raspberry Pi, Einplatinencomputer, 6.99
+6. WiFi Pineapple, Magic WLAN Router, 1199.00
+7. Diskettenlaufwerk, HP 3.5 Zoll Laufwerk, 39.99
+8. Gameboy, Handheld Spielekonsole, 59.95
+9. Macintosh, Personal Computer, 495.95
+10. Macphone, Apple Mobiltelefon, 350.00
+11. Nokia 3210, Full Feature Phone, 32.10
+12. Polaroid, Sofortbildkamera, 89.50
+13. Schallplattenspieler, Philips Player, 60.00
+14. Schreibmaschine, Olympia electric 45, 45.00
+15. Stereoanlage, RFT Multifunktionsgerät, 129.95 
+16. Videokamera, Super 8, 75.00
+17. Videorekorder, VHS Abspielgerät, 99.99
+18. Walki Talki, Talk over the Air, 29.95
+19. Sony Walkman, portables Musikabspielgeräte, 39.00
+20. Windows 95, PC Betriebssystem, 9.99

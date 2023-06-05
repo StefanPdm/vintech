@@ -1,0 +1,96 @@
+{% load static%}
+
+<nav class="navbar shadow mb-4 nav-bg px-4 sticky-top">
+   <div class="container-fluid d-flex">
+      <a
+         class="navbar-brand link-light"
+         href="{% url 'shop' %}"
+         ><img
+            class="logo-img"
+            src="{% static 'img/logos/logo_transparent.png'%}"
+            alt=""
+      /></a>
+      <ul class="navbar-nav mb-0">
+         <div class="d-flex align-items-center">
+            <li class="nav-item">
+               <a
+                  class="nav-link p-2 btn btn-light"
+                  aria-current="page"
+                  href="#"
+                  >Login</a
+               >
+            </li>
+            <li class="nav-item">
+               <a
+                  class="nav-link p-2 link-light"
+                  href="{% url 'warenkorb' %}"
+                  ><i class="bi bi-cart"></i>
+                  <span
+                     class="shadow-custom-1 position-absolute top-0 start-100 translate-middle badge rounded-pill bg-orange"
+                     >99+</span
+                  ></a
+               >
+            </li>
+            {% comment %}
+            <li class="nav-item dropdown">
+               <a
+                  class="nav-link dropdown-toggle p-2 link-light"
+                  href="#"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+               >
+                  Dropdown
+               </a>
+               <ul class="dropdown-menu">
+                  <li>
+                     <a
+                        class="dropdown-item"
+                        href="#"
+                        >Action</a
+                     >
+                  </li>
+                  <li>
+                     <a
+                        class="dropdown-item"
+                        href="#"
+                        >Another action</a
+                     >
+                  </li>
+                  <li><hr class="dropdown-divider" /></li>
+                  <li>
+                     <a
+                        class="dropdown-item"
+                        href="#"
+                        >Something else here</a
+                     >
+                  </li>
+               </ul>
+            </li>
+            <li class="nav-item">
+               <a class="nav-link disabled">Disabled</a>
+            </li>
+            {% endcomment %}
+         </div>
+      </ul>
+      {% comment %}
+      <form
+         class="d-flex"
+         role="search"
+      >
+         <input
+            class="form-control me-2"
+            type="search"
+            placeholder="Search"
+            aria-label="Search"
+         />
+         <button
+            class="btn btn-outline-success"
+            type="submit"
+         >
+            Search
+         </button>
+      </form>
+      {% endcomment %}
+   </div>
+</nav>
