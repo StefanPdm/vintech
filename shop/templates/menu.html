@@ -12,6 +12,7 @@
       /></a>
       <ul class="navbar-nav mb-0">
          <div class="d-flex align-items-center">
+            {% if not request.user.is_authenticated %}
             <li class="nav-item">
                <a
                   class="nav-link p-2 btn btn-light"
@@ -20,16 +21,29 @@
                   >Login</a
                >
             </li>
+            {% else %}
+            <li class="nav-item">
+               <a
+                  class="nav-link p-2 btn btn-light"
+                  aria-current="page"
+                  href="#"
+                  >Logout</a
+               >
+            </li>
+            {% endif %}
             <li class="nav-item">
                <a
                   class="nav-link p-2 link-light"
                   href="{% url 'warenkorb' %}"
                   ><i class="bi bi-cart"></i>
+                  {% if amount > 0 %}
                   <span
+                     id="card-counter"
                      class="shadow-custom-1 position-absolute top-0 start-100 translate-middle badge rounded-pill bg-orange"
-                     >99+</span
-                  ></a
-               >
+                     >{{amount}}</span
+                  >
+                  {% endif%}
+               </a>
             </li>
             {% comment %}
             <li class="nav-item dropdown">

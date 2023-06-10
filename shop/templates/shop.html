@@ -1,5 +1,53 @@
 {% extends 'index.html' %} {%block content%} {% load static%}
 
+<div class="row">
+   <div class="col-12 mt-4 mb-4">
+      <div class="shadow rounded">
+         <div class="d-flex justify-content-start">
+            <div class="col-5">
+               <img
+                  src="img/produkte/{{random_article.img}}"
+                  alt=""
+                  class="img-fluid img rounded-start img-responsive"
+                  style="
+                     height: auto;
+                     width: 100%;
+                     max-height: 300px;
+                     object-fit: cover;
+                  "
+               />
+            </div>
+            <div class="d-flex flex-column p-4 col-7">
+               <h3
+                  class="fw-bold"
+                  style="color: var(--brand-orange)"
+               >
+                  Deal of the moment
+               </h3>
+               <div class="fw-bold">{{random_article.name}}</div>
+               <div class="mb-auto">{{random_article.description}}</div>
+               <div class="text-end fs-3 position-relative">
+                  € {{old_price | floatformat:2}}
+                  <div class="strike rotate-right-10"></div>
+                  <div class="strike rotate-left-10"></div>
+               </div>
+               <div class="fw-bold fs-1 text-end">
+                  € {{random_article.price | floatformat:2}}
+               </div>
+               <div class="text-end pb-2">
+                  <button
+                     data-article="{{random_article.id}}"
+                     data-action="addToShoppingCart"
+                     class="pb-2 btn btn-buy w-50 btn-add-or-delete"
+                  >
+                     Kaufen
+                  </button>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
 <div class="row row-cols-4">
    {% for article in articles %}
    <div class="col mb-4 card-style">
@@ -7,13 +55,13 @@
          {% if article.img %}
          <img
             src="img/produkte/{{article.img}}"
-            class="card-img-top"
+            class="card-img-top border-bottom"
             alt="..."
          />
          {% else %}
          <img
             src="{% static 'img/logos/logo_transparent.png'%}"
-            class="card-img-top"
+            class="card-img-top border-bottom"
             alt="..."
          />
          {% endif %}
@@ -27,11 +75,14 @@
                <p class="card-text fw-bold text-end">
                   € {{article.price | floatformat:2}}
                </p>
-               <a
+               <button
+                  data-article="{{article.id}}"
+                  data-action="addToShoppingCart"
                   href="#"
-                  class="btn btn-buy w-100"
-                  >Kaufen</a
+                  class="btn btn-buy w-100 btn-add-or-delete"
                >
+                  Kaufen
+               </button>
             </div>
          </div>
       </div>

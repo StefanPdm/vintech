@@ -72,6 +72,32 @@
   transition: all 0.225s ease-in-out;
 }
 
+.strike {
+  position: absolute;
+  top: 19px;
+  right: -20px;
+  width: 150px;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--brand-orange), transparent);
+  border-radius: 25%;
+  opacity: 0.8;
+}
+
+.rotate-right-10 {
+  transform: rotate(10deg);
+}
+
+.rotate-left-10 {
+  transform: rotate(-10deg);
+}
+
 .card:hover {
   transform: scale(1.02);
+}
+
+.kasse-text-overview {
+  text-wrap: nowrap;
+  max-width: 40%;
+  overflow: hidden;
+
 }
