@@ -1,0 +1,29 @@
+{% extends 'index.html' %} {% load static%} {%block content%}
+
+<div class="row d-flex justify-content-center">
+   <div class="col-12 col-lg-7 my-4">
+      <div class="shadow rounded p-4">
+         <h2>Logout</h2>
+         <hr />
+         <br />
+         <p>Du wurdest erfolgreich abgemeldet.</p>
+         <br />
+         <p>
+            Zurück zum
+
+            <a
+               class="fs-5 fw-bold"
+               style="
+                  color: var(--brand-orange);
+                  cursor: pointer;
+                  text-decoration: none;
+               "
+               href="{% url 'shop' %}"
+               >Shop</a
+            >
+         </p>
+      </div>
+   </div>
+</div>
+
+{% endblock content%}

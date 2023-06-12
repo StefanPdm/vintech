@@ -1,0 +1,92 @@
+{% extends 'index.html' %} {% load widget_tweaks %} {%block content%}
+<div class="row d-flex justify-content-center">
+   <div class="col-12 col-lg-7 my-4">
+      <div class="shadow rounded p-4">
+         <h2>Registrierung</h2>
+         <hr />
+         <form
+            action=""
+            method="post">
+            {% csrf_token %}
+
+            <div class="mb-3">
+               <label
+                  for="inputUsername"
+                  class="form-label"
+                  >Benutzername *</label
+               >
+               <br />
+               {% render_field form.username class="form-control"%}
+            </div>
+            <div class="mb-3">
+               <label
+                  for="email"
+                  class="form-label"
+                  >Email Adresse *</label
+               ><br />
+               {% render_field form.email class="form-control"%}
+            </div>
+            <div class="mb-3">
+               <label
+                  for="password1"
+                  class="form-label"
+                  >Passwort *</label
+               >
+               {% render_field form.password1 class="form-control"%}
+            </div>
+            <div class="mb-3">
+               <label
+                  for="password2"
+                  class="form-label"
+                  >Passwort wiederholen *</label
+               >
+               {% render_field form.password2 class="form-control"%}
+
+               <ul>
+                  <li style="font-size: 0.8rem">
+                     In deinem Passwort darf der Benutzername nicht enthalten sein.
+                  </li>
+                  <li style="font-size: 0.8rem">Mindestens 8 Zeichen.</li>
+                  <li style="font-size: 0.8rem">Mindestens 1 Buchstabe.</li>
+                  <li style="font-size: 0.8rem">Kein Billigpasswort wie: Passwort0815.</li>
+               </ul>
+            </div>
+            <div class="mb-3 form-check form-check-reverse">
+               <input
+                  type="checkbox"
+                  class="form-check-input"
+                  id="newsletter"
+                  name="newsletter" />
+               <label
+                  class="form-check-label"
+                  for="newsletter"
+                  >Newsletter erhalten</label
+               >
+            </div>
+            <br />
+            {% comment %} {{form}} {% endcomment %}
+
+            <div class="d-flex justify-content-end">
+               <button
+                  type="submit"
+                  class="btn btn-buy">
+                  Registrieren
+               </button>
+            </div>
+         </form>
+         <p>* notwendige Angaben!</p>
+         <p
+            class="text-end"
+            style="font-size: 0.8rem">
+            Bereits einen Account?
+            <a
+               href="{% url 'login' %}"
+               class="link-brand"
+               >Login.</a
+            >
+         </p>
+      </div>
+   </div>
+</div>
+
+{% endblock content%}

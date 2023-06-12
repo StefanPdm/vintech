@@ -1,10 +1,37 @@
 :root {
-  --brand-green: #617d61;
-  --brand-orange: #f97300;
+  --brand-green: rgb(97, 125, 97);
+  --brand-orange: rgb(249, 115, 0);
   --brand-orange-light: #ffd0a6;
   --brand-white: #fff;
   --brand-black: #000;
   font-size: 14px !important;
+}
+
+.link-brand {
+  color: var(--brand-orange);
+  text-decoration: none;
+  font-size: 0.8rem;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="number"]:focus,
+input[type="password"]:focus,
+input[type="search"]:focus,
+input[type="tel"]:focus {
+  /* box-shadow: 0 0 1rem rgba(249, 115, 0, 1) !important; */
+  box-shadow: 0 0 1rem rgba(97,
+      125,
+      97, .6) !important;
+  outline: 1px solid var(--brand-green);
+  border: none !important;
+}
+
+input[type="checkbox"]:checked {
+  background-color: var(--brand-orange);
+  border-color: var(--brand-orange);
+  color: var(--brand-white);
+  box-shadow: 0 0 .5rem rgba(249, 115, 0, 1) !important;
 }
 
 .bg-orange {
@@ -28,6 +55,11 @@
   position: relative;
 }
 
+.navbar li a:hover {
+  color: var(--brand-white) !important;
+  /* transform: scale(1.05); */
+}
+
 .dropdown ul {
   position: absolute !important;
   left: -70% !important;
@@ -46,6 +78,23 @@
   width: 120px;
 }
 
+.text-hallo {
+  font-size: 12px !important;
+}
+
+
+.deal-style {
+  border: 1px solid var(--brand-orange);
+  transition: all .225s ease-in-out;
+}
+
+.deal-style:hover {
+  transition: all .225s ease-in-out;
+  box-shadow: 0 0rem 1rem rgba(249,
+      115,
+      0, .7) !important;
+}
+
 .btn-buy {
   background: var(--brand-orange);
   color: var(--brand-white);
@@ -54,9 +103,9 @@
 }
 
 .btn-buy:hover {
-  background: var(--brand-orange-light);
-  color: var(--brand-black);
+  background: var(--brand-green);
   border: 2px solid var(--brand-orange);
+  color: var(--brand-white);
 }
 
 .card-style {
@@ -70,6 +119,13 @@
   height: 100%;
   box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3);
   transition: all 0.225s ease-in-out;
+}
+
+.card:hover {
+  border: 1px solid var(--brand-orange);
+  box-shadow: 0 0rem .8rem rgba(249,
+      115,
+      0, .7) !important;
 }
 
 .strike {
@@ -91,8 +147,30 @@
   transform: rotate(-10deg);
 }
 
-.card:hover {
-  transform: scale(1.02);
+
+
+.message-info {
+  position: absolute;
+  top: 50vh;
+  left: 50vw;
+  transform: translate(-50%, -50%);
+  background: var(--brand-orange);
+  color: var(--brand-white);
+  padding: 1rem;
+  z-index: 10;
+  transition: all 0.5s ease-in-out;
+  border-radius: 0.375rem;
+  box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3);
+  animation: autoHide 0.225s ease-in 2s forwards;
+}
+
+@keyframes autoHide {
+  to {
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    opacity: 0;
+  }
 }
 
 .kasse-text-overview {
@@ -100,4 +178,42 @@
   max-width: 40%;
   overflow: hidden;
 
+}
+
+/* ----------------------------------------------------------------
+/* Media queries */
+/* ----------------------------------------------------------------
+
+@media (width <=768px) {
+
+  /* mobile */
+.logo-img {
+  width: 70px;
+}
+
+ul {
+  padding-top: 10px !important;
+}
+
+nav li a,
+.text-hallo {
+  font-size: 14px !important;
+}
+}
+
+@media (width <=576px) {
+
+  /* mobile */
+  .logo-img {
+    width: 50px;
+  }
+
+  ul {
+    padding-top: 0px !important;
+  }
+
+  nav li a,
+  .text-hallo {
+    font-size: 12px !important;
+  }
 }
