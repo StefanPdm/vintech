@@ -1,6 +1,6 @@
 {% load static%}
 
-<nav class="navbar shadow mb-4 nav-bg px-4 sticky-top">
+<nav class="navbar shadow nav-bg px-4 sticky-top">
    <div class="container-fluid d-flex">
       <a
          class="navbar-brand link-light"
@@ -13,6 +13,20 @@
       <div class="d-flex flex-column">
          <ul class="navbar-nav mb-0 justify-content-end">
             <div class="d-flex align-items-center justify-content-end">
+               <li class="nav-item">
+                  <a
+                     class="nav-link p-2 link-light"
+                     href="{% url 'warenkorb' %}"
+                     ><i class="bi bi-cart"></i>
+                     {% if amount > 0 %}
+                     <span
+                        id="card-counter"
+                        class="shadow-custom-1 position-absolute top-0 start-0 translate-middle badge rounded-pill bg-orange"
+                        >{{amount}}</span
+                     >
+                     {% endif%}
+                  </a>
+               </li>
                {% if not request.get_full_path == "/" %}
                <li class="nav-item">
                   <a
@@ -40,22 +54,7 @@
                      >Logout</a
                   >
                </li>
-               {% endif %}
-               <li class="nav-item">
-                  <a
-                     class="nav-link p-2 link-light"
-                     href="{% url 'warenkorb' %}"
-                     ><i class="bi bi-cart"></i>
-                     {% if amount > 0 %}
-                     <span
-                        id="card-counter"
-                        class="shadow-custom-1 position-absolute top-0 start-100 translate-middle badge rounded-pill bg-orange"
-                        >{{amount}}</span
-                     >
-                     {% endif%}
-                  </a>
-               </li>
-               {% comment %}
+               {% endif %} {% comment %}
                <li class="nav-item dropdown">
                   <a
                      class="nav-link dropdown-toggle p-2 link-light"

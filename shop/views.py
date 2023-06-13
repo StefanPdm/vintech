@@ -8,7 +8,7 @@ from django.contrib.auth import authenticate, login, logout
 # from django.contrib.auth.forms import UserCreationForm # entfällt, da eigenes UserCreationForm erstellt
 from . forms import UserRegisterForm
 from shop.utils import *
-
+import uuid
 
 # Create your views here.
 
@@ -48,6 +48,7 @@ def loginPage(request):
 def logoutPage(request):
     logout(request)
     return render(request,'logout.html')
+
 
 def shop(request):
     articles = Article.objects.all()
@@ -89,11 +90,12 @@ def kasse(request):
     ctx = {"articles": articles, "order": order}
     return render(request, "kasse.html", ctx)
 
+
 def articleBackend(request):
     if request.method == 'POST':
-        datas = json.loads(request.body)
-        articleID = datas['articleID']
-        action = datas['action']
+        data = json.loads(request.body)
+        articleID = data['articleID']
+        action = data['action']
         current_customer = request.user.customer
         current_article = Article.objects.get(id=articleID)
         order, created = Order.objects.get_or_create(customer=current_customer, completed=False)
@@ -106,7 +108,7 @@ def articleBackend(request):
              
         elif action == 'removeFromShoppingCart':
             current_orderItem.quantity = (current_orderItem.quantity -1)
-            messages.info(request, '1 Artikel wurde aus dem Warenkorb entfernt')
+            messages.info(request, 'Artikel wurde(n) aus dem Warenkorb entfernt')
         
         current_orderItem.save()
         
@@ -114,3 +116,30 @@ def articleBackend(request):
             current_orderItem.delete()
             
     return JsonResponse("article_added", safe=False)
+
+
+def orderBackend(request):
+    if request.method == 'POST':
+        order_id = uuid.uuid4() # generate a unique id for the order, version 4
+        data = json.loads(request.body)
+        if request.user.is_authenticated:
+            current_customer = request.user.customer
+            order, created = Order.objects.get_or_create(customer=current_customer, completed=False)
+            total_price = float(data['user_data']['total_price'])
+            order.order_id = order_id
+            order.completed = True
+            order.save()
+        
+            Address.objects.create(
+                customer=current_customer,
+                order = order,
+                address = data['invoice_data']['address'],
+                plz = data['invoice_data']['plz'],
+                city = data['invoice_data']['city'],
+                bundesland = data['invoice_data']['bundesland'],
+        )
+        else:
+            print("user not logged in")  
+    
+    messages.success(request, 'Bestellung erfolgreich ausgeführt.')
+    return JsonResponse("order_added", safe=False)

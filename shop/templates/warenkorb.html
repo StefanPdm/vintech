@@ -1,13 +1,11 @@
 {% extends 'index.html' %} {% load static%} {%block content%} {% if articles %}
 
 <div class="row mt-4">
-   <div class="col-12">
+   <div class="col-12 col-lg-12">
       <div class="shadow p-2 mb-4 rounded">
          <div class="d-flex justify-content-end">
             <h3 class="me-auto fw-bold p-2">Warenkorb</h3>
-            <p class="fw-bold p-2">
-               Gesamtpreis: {{order.get_total_price | floatformat:2}} €
-            </p>
+            <p class="fw-bold p-2">Gesamtpreis: {{order.get_total_price | floatformat:2}} €</p>
             <p>
                <a
                   href="{% url 'kasse' %}"
@@ -28,27 +26,23 @@
                   <th scope="col">#</th>
                   <th
                      scope="col"
-                     class="text-center"
-                  >
+                     class="text-center">
                      Bild
                   </th>
                   <th scope="col">Artikel</th>
                   <th
                      scope="col"
-                     class="text-center"
-                  >
+                     class="text-center">
                      Menge
                   </th>
                   <th
                      scope="col"
-                     class="text-end"
-                  >
+                     class="text-end">
                      Einzelpreis
                   </th>
                   <th
                      scope="col"
-                     class="text-end"
-                  >
+                     class="text-end">
                      Gesamtpreis
                   </th>
                </tr>
@@ -63,22 +57,18 @@
                         src="{{article.article.img.url}}"
                         alt=""
                         width="50"
-                        height="50"
-                     />
+                        height="50" />
                   </td>
                   <td>{{article.article.name}}</td>
                   <td class="text-center">{{article.quantity}}</td>
-                  <td class="text-end">
-                     {{article.article.price | floatformat:2}} €
-                  </td>
+                  <td class="text-end">{{article.article.price | floatformat:2}} €</td>
                   <td class="text-end">{{article.get_sumary | floatformat:2}} €</td>
                   <td class="text-end">
                      <button
                         data-article="{{article.article.id}}"
                         data-action="removeFromShoppingCart"
                         href="#"
-                        class="btn btn-buy btn-add-or-delete"
-                     >
+                        class="btn btn-buy btn-add-or-delete">
                         -
                      </button>
                   </td>
@@ -87,8 +77,7 @@
                         data-article="{{article.article.id}}"
                         data-action="addToShoppingCart"
                         href="#"
-                        class="btn btn-buy btn-add-or-delete"
-                     >
+                        class="btn btn-buy btn-add-or-delete">
                         +
                      </button>
                   </td>
@@ -101,6 +90,10 @@
 </div>
 
 {% else %}
-<h2 style="min-height: 80dvh">Dein Warenkorb ist leer ....</h2>
+<h2
+   class="mt-4"
+   style="min-height: 80dvh">
+   Dein Warenkorb ist leer ....
+</h2>
 
 {% endif %} {% endblock content%}

@@ -1,35 +1,37 @@
 {% extends 'index.html' %} {%block content%} {% load static%}
-<div class="d-flex flex-column justify-content-around mt-4 gap-3 mb-4">
-   <div class="col-12">
+<div class="d-flex flex-column align-items-center mt-4 gap-3 mb-4">
+   <div class="col-12 col-lg-10">
       <div class="shadow p-4 rounded">
          <h3>Bestellübersicht</h3>
          <hr />
          {% for article in articles %}
          <div class="d-flex">
             <p class="px-2">{{article.quantity}}x</p>
-            <p class="px-2 me-auto kasse-text-overview w-50">
-               {{article.article.name}}
-            </p>
+            <p class="px-2 me-auto kasse-text-overview w-50">{{article.article.name}}</p>
             <p class="px-2">{{article.article.price | floatformat:2}}€</p>
-            <p class="px-2 fw-bold w-25 text-end">
-               {{article.get_sumary | floatformat:2}}€
-            </p>
+            <p class="px-2 fw-bold w-25 text-end">{{article.get_sumary | floatformat:2}}€</p>
          </div>
          {% endfor %}
          <hr />
          <div class="d-flex">
             <p class="fw-bold p-2 me-auto">Menge: {{order.get_total_quantity}}</p>
-            <p class="fw-bold p-2">
-               Gesamtpreis: {{order.get_total_price | floatformat:2}} €
-            </p>
+            <p class="fw-bold p-2">Gesamtpreis: {{order.get_total_price | floatformat:2}} €</p>
+            {% comment %} hidden field to get total-price in warenkorb.js {% endcomment %}
+            <input
+               hidden
+               type="number"
+               value="{{order.get_total_price}}"
+               id="hidden-total-price" />
          </div>
       </div>
    </div>
-   <div class="col-12">
-      <div class="shadow p-4 rounded">
+   <div class="col-12 col-lg-10 transition-225">
+      <div class="shadow p-4 rounded transition-225 mb-4">
          <h3>Rechnungsanschrift</h3>
          <hr />
-         <form class="row g-3">
+         <form
+            class="row g-3"
+            id="form-checkout">
             <div class="col-md-6">
                <label
                   for="inputName"
@@ -40,7 +42,8 @@
                   type="text"
                   class="form-control"
                   id="inputName"
-               />
+                  value="{{request.user|title}}"
+                  required />
             </div>
             <div class="col-md-6">
                <label
@@ -52,7 +55,8 @@
                   type="email"
                   class="form-control"
                   id="inputEmail"
-               />
+                  value="{{request.user.email}}"
+                  required />
             </div>
             <div class="col-12">
                <label
@@ -64,7 +68,7 @@
                   type="text"
                   class="form-control"
                   id="inputAddress"
-               />
+                  required />
             </div>
             <div class="col-md-2">
                <label
@@ -76,7 +80,7 @@
                   type="text"
                   class="form-control"
                   id="inputPlz"
-               />
+                  required />
             </div>
             <div class="col-md-5">
                <label
@@ -88,7 +92,7 @@
                   type="text"
                   class="form-control"
                   id="inputCity"
-               />
+                  required />
             </div>
             <div class="col-md-5">
                <label
@@ -99,7 +103,7 @@
                <select
                   id="inputState"
                   class="form-select"
-               >
+                  required>
                   <option selected>Auswählen...</option>
                   <option>Berlin</option>
                   <option>Brandenburg</option>
@@ -107,33 +111,28 @@
                   <option>Nordrhein Westphalen</option>
                </select>
             </div>
-            {% comment %}
-            <div class="col-12">
-               <div class="form-check">
-                  <input
-                     class="form-check-input"
-                     type="checkbox"
-                     id="gridCheck"
-                  />
-                  <label
-                     class="form-check-label"
-                     for="gridCheck"
-                  >
-                     Check me out
-                  </label>
-               </div>
-            </div>
-            {% endcomment %}
             <div class="col-12 d-flex justify-content-end">
                <button
                   type="submit"
                   class="btn btn-secondary btn-buy"
-                  id="bestell-button"
-               >
+                  id="form-forward-button">
                   Weiter
                </button>
             </div>
          </form>
+         <div
+            class="d-flex flex-column align-end py-6 hidden transition-225"
+            id="info-checkout">
+            <br />
+            <div class="fw-bold text-end">Zahlung: Paypal</div>
+            <br />
+            <button
+               type="submit"
+               class="btn btn-secondary btn-buy"
+               id="form-checkout-button">
+               Bezahlen
+            </button>
+         </div>
       </div>
    </div>
 </div>

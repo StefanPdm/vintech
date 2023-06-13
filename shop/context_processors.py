@@ -5,7 +5,7 @@ from . models import Order, OrderItem
 def shopping_cart_items(request):
   if request.user.is_authenticated:
     current_user = request.user.customer
-    current_order = Order.objects.get(customer=current_user, completed=False)
+    current_order, created  = Order.objects.get_or_create(customer=current_user, completed=False)
       
     if current_order:
       cart_items_amount = current_order.get_total_quantity  

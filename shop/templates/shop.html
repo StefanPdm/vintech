@@ -3,25 +3,18 @@
 <div class="row">
    <div class="col-12 mt-4 mb-4">
       <div class="shadow rounded deal-style">
-         <div class="d-flex justify-content-start">
-            <div class="col-5 overflow-hidden">
+         <div class="d-flex flex-column flex-lg-row justify-content-between">
+            <div class="col-12 col-lg-4 overflow-hidden">
                <img
                   src="img/produkte/{{random_article.img}}"
                   alt=""
                   class="img-fluid img rounded-start img-responsive"
-                  style="
-                     height: auto;
-                     width: 100%;
-                     max-height: 300px;
-                     object-fit: cover;
-                  "
-               />
+                  style="height: auto; width: 100%; max-height: 300px; object-fit: cover" />
             </div>
-            <div class="d-flex flex-column p-4 col-7">
+            <div class="d-flex flex-column p-4 col-12 col-lg-7">
                <h3
                   class="fw-bold"
-                  style="color: var(--brand-orange)"
-               >
+                  style="color: var(--brand-orange)">
                   Deal of the moment
                </h3>
                <div class="fw-bold">{{random_article.name}}</div>
@@ -31,15 +24,12 @@
                   <div class="strike rotate-right-10"></div>
                   <div class="strike rotate-left-10"></div>
                </div>
-               <div class="fw-bold fs-1 text-end">
-                  € {{random_article.price | floatformat:2}}
-               </div>
+               <div class="fw-bold fs-1 text-end">€ {{random_article.price | floatformat:2}}</div>
                <div class="text-end pb-2">
                   <button
                      data-article="{{random_article.id}}"
                      data-action="addToShoppingCart"
-                     class="pb-2 btn btn-buy w-50 btn-add-or-delete"
-                  >
+                     class="pb-2 btn btn-buy w-50 btn-add-or-delete">
                      Kaufen
                   </button>
                </div>
@@ -48,7 +38,7 @@
       </div>
    </div>
 </div>
-<div class="row row-cols-4">
+<div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 justify-content-center">
    {% for article in articles %}
    <div class="col mb-4 card-style">
       <div class="card">
@@ -56,14 +46,12 @@
          <img
             src="img/produkte/{{article.img}}"
             class="card-img-top border-bottom"
-            alt="..."
-         />
+            alt="..." />
          {% else %}
          <img
             src="{% static 'img/logos/logo_transparent.png'%}"
             class="card-img-top border-bottom"
-            alt="..."
-         />
+            alt="..." />
          {% endif %}
          <div class="card-body d-flex flex-column justify-content-between">
             <div>
@@ -72,15 +60,12 @@
             </div>
             <div>
                <hr />
-               <p class="card-text fw-bold text-end">
-                  € {{article.price | floatformat:2}}
-               </p>
+               <p class="card-text fw-bold text-end">€ {{article.price | floatformat:2}}</p>
                <button
                   data-article="{{article.id}}"
                   data-action="addToShoppingCart"
                   href="#"
-                  class="btn btn-buy w-100 btn-add-or-delete"
-               >
+                  class="btn btn-buy w-100 btn-add-or-delete">
                   Kaufen
                </button>
             </div>
