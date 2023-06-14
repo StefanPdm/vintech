@@ -1,3 +1,4 @@
+import decimal
 from django.shortcuts import redirect, render
 from .models import *
 from django.http import JsonResponse
@@ -9,6 +10,8 @@ from django.contrib.auth import authenticate, login, logout
 from . forms import UserRegisterForm
 from shop.utils import *
 import uuid
+from django.utils.safestring import mark_safe
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -53,7 +56,7 @@ def logoutPage(request):
 def shop(request):
     articles = Article.objects.all()
     random_article = random.choice(articles)
-    old_price = random_article.price * 1.2
+    old_price = random_article.price * decimal.Decimal(1.20)
     if request.user.is_authenticated:
         customer = request.user.customer
         order, created = Order.objects.get_or_create(customer=customer, completed=False)
@@ -119,8 +122,8 @@ def articleBackend(request):
 
 
 def orderBackend(request):
+    order_id = uuid.uuid4() # generate a unique id for the order, version 4
     if request.method == 'POST':
-        order_id = uuid.uuid4() # generate a unique id for the order, version 4
         data = json.loads(request.body)
         if request.user.is_authenticated:
             current_customer = request.user.customer
@@ -140,6 +143,25 @@ def orderBackend(request):
         )
         else:
             print("user not logged in")  
-    
-    messages.success(request, 'Bestellung erfolgreich ausgeführt.')
+            
+    order_URL = str(order_id)
+    messages.success(request, mark_safe("Vielen Dank für Ihre <a href='/active_order/"+order_URL+"'>Bestellung: "+order_URL+"</a>"))
+    # messages.success(request, mark_safe("Vielen Dank für Ihre <a href='/active_order/" + order_URL + ">Bestellung: " + order_URL + "</a>"))
     return JsonResponse("order_added", safe=False)
+
+
+@login_required(login_url='/login/')
+def activeOrder(request, order_id):
+    order = Order.objects.filter(order_id=order_id)
+    print('Order: ',order)
+    if order and str(request.user) == str(Order.objects.get(order_id=order_id).customer):
+        active_order = Order.objects.get(order_id=order_id)
+        articles = active_order.orderitem_set.all()
+        ctx = {"articles": articles, "active_order": active_order}
+        return render(request, "active_order.html", ctx)
+    else:
+        return redirect('shop')
+
+
+def handler404(request, exception=None, template_name='404.html'):
+    return render(request, template_name, status=404)

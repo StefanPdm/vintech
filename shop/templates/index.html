@@ -29,7 +29,7 @@
       <script>
           let current_user = "{{request.user}}";
           {% comment %} to get csrf token {% endcomment %}
-         function getCsrfToken(name) {
+         {% comment %} function getCsrfToken(name) {
              let cookieValue = null;
              if (document.cookie && document.cookie !== "") {
                 const cookies = document.cookie.split(";");
@@ -48,8 +48,9 @@
              }
              return cookieValue;
           }
-          const csrftoken = getCsrfToken('csrftoken');
+          const csrftoken = getCsrfToken('csrftoken'); {% endcomment %}
       </script>
+      <script src="{% static 'js/cookie.js' %}"></script>
    </head>
    <body>
       {% include "menu.html" %}

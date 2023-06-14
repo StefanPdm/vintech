@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 class Customer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
     name = models.CharField(max_length=100, null=True)
-    email = models.CharField(max_length=100, null=True)
+    email = models.EmailField(max_length=100, null=True)
 
     def __str__(self):
         return self.name
@@ -15,7 +15,7 @@ class Customer(models.Model):
 class Article(models.Model):
     name = models.CharField(max_length=100, null=True)
     description = models.TextField(max_length=100, null=True, blank=True)
-    price = models.FloatField(max_length=10, null=True, blank=True)
+    price = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
     img = models.ImageField(upload_to="articles", null=True, blank=True)
 
     def __str__(self):
@@ -46,7 +46,8 @@ class Order(models.Model):
         for item in self.orderitem_set.all():
             total += item.quantity
         return total
-
+    
+   
 
 class OrderItem(models.Model):
     article = models.ForeignKey(

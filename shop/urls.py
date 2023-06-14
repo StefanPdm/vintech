@@ -10,5 +10,5 @@ urlpatterns = [
     path('logout/', views.logoutPage, name='logout'),
     path('register/', views.registerPage, name='register'),
     path('order_backend/', views.orderBackend, name='order_backend'),
-    path('active_order<uuid:id>', views.order, name='active_order'), #alternative possible int:id, str:id, uuid:id, slug:id
+    path('active_order/<uuid:order_id>', views.activeOrder, name='active_order'), #alternative possible int:id, str:id, uuid:id, slug:id
     ]

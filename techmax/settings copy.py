@@ -14,7 +14,8 @@ SECRET_KEY = "django-insecure-zb1-x7=ey-1z-b)^6%b+bc2zm1&akfwj6+k10_18^%9s6a!_@r
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-ALLOWED_HOSTS = []
+# DEBUG_PROPAGATE_EXCEPTIONS = True
+ALLOWED_HOSTS = ["*","127.0.0.1"]
 
 # Messages styles
 MESSAGE_TAGS = {
@@ -120,18 +121,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = "static/"
-STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
-
-
-# if DEBUG:
-#     STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
-# else:
-#     STATIC_ROOT = os.path.join(BASE_DIR, "static"),
-    
+STATICFILES_DIRS = [BASE_DIR / "static"]
+# STATICFILES_DIRS = [os.path.join(BASE_DIR, "/shop/static")]
 
 MEDIA_URL = "/img/produkte/"
-MEDIA_ROOT = os.path.join(BASE_DIR, "static/img/produkte")
-
+MEDIA_ROOT = BASE_DIR / "static/img/produkte"
+# MEDIA_ROOT = [os.path.join(BASE_DIR, "/static/img/produkte")]
 
 
 # Default primary key field type
