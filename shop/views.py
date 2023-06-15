@@ -1,7 +1,7 @@
 import decimal
 from django.shortcuts import redirect, render
 from .models import *
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 import json
 import random
 from django.contrib import messages
@@ -12,6 +12,7 @@ from shop.utils import *
 import uuid
 from django.utils.safestring import mark_safe
 from django.contrib.auth.decorators import login_required
+from . views_tools import *
 
 # Create your views here.
 
@@ -75,24 +76,11 @@ def warenkorb(request):
         articles = order.orderitem_set.all()
         
     else:
-        try:
-            shopping_card = json.loads(request.COOKIES['shopping_card']) #read from cookie
-        except:
-            shopping_card = {} #create empty shopping card if no cookie
-            
-        articles = []
-        order = {'get_total_price': 0, 'get_total_quantity': 0}
-        amount = ['get_total_quantity']
-        
-        for i in shopping_card:
-            amount += shopping_card[i]['quantity']
-            article = Article.objects.get(id=shopping_card[i])
-            total_price = article.price * decimal.Decimal(shopping_card[i]['quantity'])
-        
-        
+        cookie_data = guestCookie(request)
+        articles = cookie_data['articles']
+        order = cookie_data['order']
         
     ctx = {"articles": articles, "order": order}
-
     return render(request, "warenkorb.html", ctx)
 
 
@@ -102,8 +90,10 @@ def kasse(request):
         order, created = Order.objects.get_or_create(customer=customer, completed=False)
         articles = order.orderitem_set.all()
     else:
-        articles = []
-        order = []
+        cookie_data = guestCookie(request)
+        articles = cookie_data['articles']
+        order = cookie_data['order']
+        
     ctx = {"articles": articles, "order": order}
     return render(request, "kasse.html", ctx)
 
@@ -138,30 +128,36 @@ def articleBackend(request):
 def orderBackend(request):
     order_id = uuid.uuid4() # generate a unique id for the order, version 4
     if request.method == 'POST':
-        data = json.loads(request.body)
+        form_data = json.loads(request.body)
+        
         if request.user.is_authenticated:
             current_customer = request.user.customer
             order, created = Order.objects.get_or_create(customer=current_customer, completed=False)
-            total_price = float(data['user_data']['total_price'])
-            order.order_id = order_id
-            order.completed = True
-            order.save()
-        
-            Address.objects.create(
-                customer=current_customer,
-                order = order,
-                address = data['invoice_data']['address'],
-                plz = data['invoice_data']['plz'],
-                city = data['invoice_data']['city'],
-                bundesland = data['invoice_data']['bundesland'],
-        )
-        else:
-            print("user not logged in")  
             
-    order_URL = str(order_id)
-    messages.success(request, mark_safe("Vielen Dank für Ihre <a href='/active_order/"+order_URL+"'>Bestellung: "+order_URL+"</a>"))
-    # messages.success(request, mark_safe("Vielen Dank für Ihre <a href='/active_order/" + order_URL + ">Bestellung: " + order_URL + "</a>"))
-    return JsonResponse("order_added", safe=False)
+        else:
+            order, current_customer = guestOrder(request, form_data)
+    
+        total_price = float(form_data['user_data']['total_price'])
+        order.order_id = order_id
+        order.completed = True
+        order.save()
+
+        Address.objects.create(
+            customer=current_customer,
+            order = order,
+            address = form_data['invoice_data']['address'],
+            plz = form_data['invoice_data']['plz'],
+            city = form_data['invoice_data']['city'],
+            bundesland = form_data['invoice_data']['bundesland'])
+            
+        order_URL = str(order_id)
+        messages.success(request, mark_safe("Vielen Dank für Ihre <a href='/active_order/"+order_URL+"'>Bestellung: "+order_URL+"</a>"))
+    
+        # return JsonResponse("order_added", safe=False)
+        response = HttpResponse('Bestellung wurde erfolgreich erstellt.')
+        response.delete_cookie('shopping_card')
+        return response
+
 
 
 @login_required(login_url='/login/')

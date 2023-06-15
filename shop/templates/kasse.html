@@ -38,12 +38,20 @@
                   class="form-label"
                   >Name</label
                >
+               {% if request.user.is_authenticated %}
                <input
                   type="text"
                   class="form-control"
                   id="inputName"
                   value="{{request.user|title}}"
                   required />
+               {%else%}
+               <input
+                  type="text"
+                  class="form-control"
+                  id="inputName"
+                  required />
+               {% endif %}
             </div>
             <div class="col-md-6">
                <label
@@ -51,12 +59,21 @@
                   class="form-label"
                   >Email</label
                >
+               {% if request.user.is_authenticated%}
                <input
                   type="email"
                   class="form-control"
                   id="inputEmail"
                   value="{{request.user.email}}"
                   required />
+               {% else%}
+               <input
+                  type="email"
+                  class="form-control"
+                  id="inputEmail"
+                  value="test@test.de"
+                  required />
+               {% endif %}
             </div>
             <div class="col-12">
                <label
@@ -110,8 +127,20 @@
                   <option selected>Auswählen...</option>
                   <option>Berlin</option>
                   <option>Brandenburg</option>
+                  <option>Bayern</option>
+                  <option>Baden-Württemberg</option>
+                  <option>Bremen</option>
+                  <option>Hamburg</option>
                   <option>Schleswig Holstein</option>
+                  <option>Mecklenburg-Vorpommern</option>
                   <option>Nordrhein Westphalen</option>
+                  <option>Rheinland-Pfalz</option>
+                  <option>Saarland</option>
+                  <option>Niedersachsen</option>
+                  <option>Thüringen</option>
+                  <option>Hessen</option>
+                  <option>Sachsen</option>
+                  <option>Sachsen-Anhalt</option>
                </select>
             </div>
             <div class="col-12 d-flex justify-content-end">

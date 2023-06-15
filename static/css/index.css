@@ -100,13 +100,14 @@ input[type="checkbox"]:checked {
 .deal-style {
   border: 1px solid var(--brand-orange);
   transition: all .225s ease-in-out;
+  box-shadow: 0 0rem 1rem rgba(249, 115, 0, .5) !important;
 }
 
 .deal-style:hover {
   transition: all .225s ease-in-out;
   box-shadow: 0 0rem 1rem rgba(249,
       115,
-      0, .7) !important;
+      0, .8) !important;
 }
 
 .btn-buy {

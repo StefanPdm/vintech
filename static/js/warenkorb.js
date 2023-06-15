@@ -32,13 +32,13 @@ function updateGuestOrder(articleId, action) {
       shopping_card[articleId]['quantity'] += 1;
     }
   }
-  if (action == 'deleteFromShoppingCart') {
+  if (action == 'removeFromShoppingCart') {
     shopping_card[articleId]['quantity'] -= 1;
     if (shopping_card[articleId]['quantity'] <= 0) {
       delete shopping_card[articleId];
     }
   }
-  // document.cookie = "shopping_card=" + JSON.stringify(shopping_card) + "domain;path=/; SameSite=None; Secure";
+
   document.cookie = "shopping_card=" + JSON.stringify(shopping_card) + ";path=/; SameSite=None; Secure";
   console.log("ShoppingCard", shopping_card);
   location.reload();
