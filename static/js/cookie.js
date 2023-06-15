@@ -1,3 +1,5 @@
+
+
 const csrftoken = getCsrfToken('csrftoken');
 console.log("csrf-Token", csrftoken);
 
@@ -60,6 +62,5 @@ function getShoppingCartCookie(name) {
   }
   return cookieValue;
 }
-
 
 
