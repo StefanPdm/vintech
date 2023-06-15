@@ -1,9 +1,6 @@
-// import * from './static/js/cookies.js';
-
 
 let orderOrDeleteButtons = document.querySelectorAll('.btn-add-or-delete');
 let cardCounter = document.getElementById('card-counter');
-let articleCounter = 0;
 
 
 orderOrDeleteButtons.forEach(button => {

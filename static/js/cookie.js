@@ -6,7 +6,7 @@ console.log('Warenkorb 1:', shopping_card);
 
 if (shopping_card == undefined) {
   shopping_card = {};
-  document.cookie = "shopping_card=" + JSON.stringify(shopping_card) + "domain;path=/; SameSite=None; Secure"; /** "domain;path=/" ->cookie is valid for entire website*/
+  document.cookie = "shopping_card=" + JSON.stringify(shopping_card) + ";path=/; SameSite=None; Secure"; /** "domain;path=/" ->cookie is valid for entire website*/
   console.log('Warenkorb 2:', shopping_card);
 }
 
@@ -55,6 +55,8 @@ function getShoppingCartCookie(name) {
         break;
       }
     }
+  } else {
+    cookieValue = {}
   }
   return cookieValue;
 }

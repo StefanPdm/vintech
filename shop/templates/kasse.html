@@ -50,6 +50,7 @@
                   type="text"
                   class="form-control"
                   id="inputName"
+                  value="Guest"
                   required />
                {% endif %}
             </div>
@@ -124,8 +125,10 @@
                   id="inputState"
                   class="form-select"
                   required>
+                  {% comment %}
                   <option selected>Auswählen...</option>
-                  <option>Berlin</option>
+                  {% endcomment %}
+                  <option selected>Berlin</option>
                   <option>Brandenburg</option>
                   <option>Bayern</option>
                   <option>Baden-Württemberg</option>
@@ -156,14 +159,25 @@
             class="d-flex flex-column align-end py-6 hidden transition-225"
             id="info-checkout">
             <br />
-            <div class="fw-bold text-end">Zahlung: Paypal</div>
+            <div class="fw-bold text-end">
+               Zahlungsmethode: Paypal
+               <img
+                  style="height: 25px"
+                  src="{% static 'img/logos/paypal-mark-color.svg'%}"
+                  alt="" />
+            </div>
             <br />
             <button
                type="submit"
                class="btn btn-secondary btn-buy"
                id="form-checkout-button">
-               Bezahlen
+               Jetzt bestellen
             </button>
+            <br />
+            <div class="fw-bold">Hinweis: Zur Zahlung wurde eine PayPal Test Account angelegt!</div>
+            <br />
+            <div>email: test@test.berlin</div>
+            <div>Passwort: Test1234</div>
          </div>
       </div>
    </div>

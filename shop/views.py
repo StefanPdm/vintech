@@ -13,8 +13,12 @@ import uuid
 from django.utils.safestring import mark_safe
 from django.contrib.auth.decorators import login_required
 from . views_tools import *
+# ######## imports for PAYPAL ############################
+from django.urls import reverse
+from django.shortcuts import render
+from paypal.standard.forms import PayPalPaymentsForm
+# ######################################################
 
-# Create your views here.
 
 def registerPage(request):
     form = UserRegisterForm()
@@ -149,9 +153,25 @@ def orderBackend(request):
             plz = form_data['invoice_data']['plz'],
             city = form_data['invoice_data']['city'],
             bundesland = form_data['invoice_data']['bundesland'])
-            
+        
+        # start for PAYPAL ####################################
+        paypal_dict = {
+        "business": "developer@heinemann.berlin",
+        "amount": total_price,
+        "item_name": "Bestellung bei VINTECH",
+        "invoice": order_id,
+        "currency_code": "EUR",
+        "notify_url": request.build_absolute_uri(reverse('paypal-ipn')),
+        "return": request.build_absolute_uri(reverse('shop')),
+        "cancel_return": request.build_absolute_uri(reverse('shop')),
+        # "custom": "premium_plan",  # Custom command to correlate to some function later (optional)
+    }
+        paypal_form = PayPalPaymentsForm(initial=paypal_dict)
+        ctx = {"form_paypal": paypal_form} # if you want to render PP Btn on the page {{form_paypal}}
+        # end for PAYPAL #################################### 
+           
         order_URL = str(order_id)
-        messages.success(request, mark_safe("Vielen Dank für Ihre <a href='/active_order/"+order_URL+"'>Bestellung: "+order_URL+"</a>"))
+        messages.success(request, mark_safe("Vielen Dank für Ihre <a href='/active_order/"+order_URL+"'>Bestellung: "+order_URL+"</a><br> Jetzt bezahlen: "+paypal_form.render()))
     
         # return JsonResponse("order_added", safe=False)
         response = HttpResponse('Bestellung wurde erfolgreich erstellt.')
