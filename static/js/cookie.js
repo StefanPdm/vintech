@@ -1,8 +1,7 @@
 const csrftoken = getCsrfToken('csrftoken');
 console.log("csrf-Token", csrftoken);
 
-
-let shopping_card = JSON.parse(getShoppingCardCookie('shopping_card'));
+let shopping_card = JSON.parse(getShoppingCartCookie('shopping_card'));
 console.log('Warenkorb 1:', shopping_card);
 
 if (shopping_card == undefined) {
@@ -42,7 +41,7 @@ function getCsrfToken(name) {
  * @param {*} name 
  * @returns 
  */
-function getShoppingCardCookie(name) {
+function getShoppingCartCookie(name) {
   let cookieValue = null;
   if (document.cookie && document.cookie !== "") {
     const cookies = document.cookie.split(";");

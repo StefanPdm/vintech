@@ -75,8 +75,22 @@ def warenkorb(request):
         articles = order.orderitem_set.all()
         
     else:
+        try:
+            shopping_card = json.loads(request.COOKIES['shopping_card']) #read from cookie
+        except:
+            shopping_card = {} #create empty shopping card if no cookie
+            
         articles = []
-        order = []
+        order = {'get_total_price': 0, 'get_total_quantity': 0}
+        amount = ['get_total_quantity']
+        
+        for i in shopping_card:
+            amount += shopping_card[i]['quantity']
+            article = Article.objects.get(id=shopping_card[i])
+            total_price = article.price * decimal.Decimal(shopping_card[i]['quantity'])
+        
+        
+        
     ctx = {"articles": articles, "order": order}
 
     return render(request, "warenkorb.html", ctx)

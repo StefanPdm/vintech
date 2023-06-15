@@ -1,3 +1,6 @@
+// import * from './static/js/cookies.js';
+
+
 let orderOrDeleteButtons = document.querySelectorAll('.btn-add-or-delete');
 let cardCounter = document.getElementById('card-counter');
 let articleCounter = 0;
@@ -8,9 +11,39 @@ orderOrDeleteButtons.forEach(button => {
     e.preventDefault();
     let articleId = e.target.getAttribute('data-article');
     let action = e.target.getAttribute('data-action');
-    updateOrder(articleId, action);
+
+    console.log('Benutzer:', current_user);
+    if (current_user == 'AnonymousUser') {
+      updateGuestOrder(articleId, action);
+    } else {
+      updateOrder(articleId, action)
+    }
+
   });
 });
+
+function updateGuestOrder(articleId, action) {
+  // console.log(articleId, action);
+  if (action == 'addToShoppingCart') {
+    if (shopping_card[articleId] == undefined) {
+      shopping_card[articleId] = { 'quantity': 1 };
+      console.log("ShoppingCard", shopping_card);
+    } else {
+      shopping_card[articleId]['quantity'] += 1;
+    }
+  }
+  if (action == 'deleteFromShoppingCart') {
+    shopping_card[articleId]['quantity'] -= 1;
+    if (shopping_card[articleId]['quantity'] <= 0) {
+      delete shopping_card[articleId];
+    }
+  }
+  // document.cookie = "shopping_card=" + JSON.stringify(shopping_card) + "domain;path=/; SameSite=None; Secure";
+  document.cookie = "shopping_card=" + JSON.stringify(shopping_card) + ";path=/; SameSite=None; Secure";
+  console.log("ShoppingCard", shopping_card);
+  location.reload();
+}
+
 
 function updateOrder(articleId, action) {
   let url = '/article_backend/';
